@@ -11,8 +11,8 @@ import java.util.*;
 public class Edge {
 	private final int v;
 	private final int w;
-	private final double flow;
-	private final double capacity;
+	private double flow;
+	private double capacity;
 
     public Edge(int v, int w, double flow, double capacity) {
         this.v = v;
@@ -29,6 +29,14 @@ public class Edge {
     	return w;
     }
     
+    public int other(int vertex){
+    	if (vertex == v) 
+    		return w;
+    	else if (vertex == w) 
+    		return v;
+    	else throw new IllegalArgumentException();
+    }
+    
     public double flow(){
     	return flow;
     }
@@ -36,6 +44,23 @@ public class Edge {
     	return capacity;
     }
 
+    public double residualCapacityTo(int vertex){
+    	// forward edge
+    	if (vertex == v) return flow;
+    	// backward edge
+    	else if (vertex == w) return capacity-flow;
+    	else throw new IllegalArgumentException();
+    }
+    
+    public void addResidualFlowTo(int vertex, double delta){
+    	// forward edge
+    	if (vertex == v) flow -= delta;
+    	// backward edge
+    	else if (vertex == w) flow += delta;
+    	else throw new IllegalArgumentException();
+
+    }
+    
     public String toString() {
         return v + "->" + w + " " + String.format("%5.2f/%5.2f", flow, capacity);
     }    

@@ -3,11 +3,15 @@
  */
 
 /**
+ * Ford Fulkerson Algorithm
  * @author yusong
  *
  */
 public class MaxFlow {
-
+	
+	public MaxFlow(DirectedGraph G, int s, int t){
+		
+	}
 	/**
 	 * @param args
 	 */

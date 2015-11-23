@@ -112,6 +112,9 @@ public class DirectedGraph {
     	return safeCities;
     }
     
+
+    
+    
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(V + " " + E + "\n");
