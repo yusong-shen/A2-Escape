@@ -118,13 +118,14 @@ public class DirectedGraph {
     	return safeCities;
     }
     
-	public void makeResidualGraph(){
+	public DirectedGraph makeResidualGraph(List<String> graph){
 		//TODO 
 		// if a original flow edge is v -7/9(f/c) -> w
 		// we will change it into v - 0/2 -> w
 		// 						  v <-0/7 -- w
 		// directly modify from original graph 
 		// then it needs one more deleteEdge method
+		DirectedGraph residualG = new DirectedGraph(graph);
         Set<Integer> vSet = adj.keySet();
         int minv = Collections.min(vSet); 
         // loop through all the edges
@@ -135,17 +136,18 @@ public class DirectedGraph {
             if (adjCopy.containsKey(v)) {
 	            for (Edge e : adjCopy.get(v)) {
 	            	// remove original edge
-	            	deleteEdge(e);
+	            	residualG.deleteEdge(e);
 	            	int w = e.to();
 	            	// add forward residual edges
-	            	addEdge(new Edge(v, w, 0, e.capacity()-e.flow()));
+	            	residualG.addEdge(new Edge(v, w, 0, e.capacity()-e.flow()));
 	            	// add backward residual edges
-	            	addEdge(new Edge(w, v, 0, e.flow()));
+	            	residualG.addEdge(new Edge(w, v, 0, e.flow()));
 	            	
 	            	
 	            }
         	}
         }
+		return residualG;
  	
 		
 	}
@@ -174,8 +176,8 @@ public class DirectedGraph {
             List<String> lines = Files.readAllLines(Paths.get(args[0]));
 	        DirectedGraph G = new DirectedGraph(lines);
 	        System.out.println(G);
-	        G.makeResidualGraph();
-	        System.out.println(G);
+	        DirectedGraph residualG = G.makeResidualGraph(lines);
+	        System.out.println(residualG);
 	        
         } catch (IOException e){
             e.printStackTrace();
