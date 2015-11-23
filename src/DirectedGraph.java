@@ -2,8 +2,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 
@@ -15,8 +18,8 @@ import java.util.List;
  */
 public class DirectedGraph {
 	
-	private int V;
-	private int E;
+	private int V = 0;
+	private int E = 0;
 	private int X;
 	private int S;
 	private HashMap<Integer, ArrayList<Edge>> adj = new HashMap<Integer, ArrayList<Edge>>();    // adj.get(v) = adjacency list for vertex v
@@ -27,8 +30,8 @@ public class DirectedGraph {
 		// first line
 		String line0 = graph.get(0);
 		String[] constants = line0.split(" ");
-		V = Integer.parseInt(constants[0]);
-		E = Integer.parseInt(constants[1]);
+		int V = Integer.parseInt(constants[0]);
+		int E = Integer.parseInt(constants[1]);
 		X = Integer.parseInt(constants[2]);
 		S = Integer.parseInt(constants[3]);
 		populatedCities = new int[X];
@@ -68,14 +71,15 @@ public class DirectedGraph {
     		ArrayList<Edge> adjList = new ArrayList<Edge>();
     		adj.put(v, adjList);
     		adj.get(v).add(e);
+    		V ++;
     	}
-        if (adj.containsKey(w)){
-            adj.get(w).add(e);
-        } else {
-            ArrayList<Edge> adjList = new ArrayList<Edge>();
-            adj.put(w, adjList);
-            adj.get(w).add(e);            
+        // counted the node
+        if (adj.containsKey(w) == false){
+    		ArrayList<Edge> adjList = new ArrayList<Edge>();
+        	adj.put(w, adjList);
+        	V++;
         }
+        E ++;
     }
     
     public Iterable<Edge> adj(int v) {
@@ -109,7 +113,9 @@ public class DirectedGraph {
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(V + " " + E + "\n");
-        for (int v = 0; v < V; v++) {
+        Set<Integer> vSet = adj.keySet();
+        int minv = Collections.min(vSet); 
+        for (int v = minv; v < V + minv; v++) {
             s.append(v + " -> ");
             if (adj.containsKey(v)) {
 	            for (Edge e : adj.get(v)) {
