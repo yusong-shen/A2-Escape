@@ -1,3 +1,6 @@
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * 
  */
@@ -15,7 +18,7 @@ public class MaxFlow {
 
 	public MaxFlow(DirectedGraph G, int s, int t){
 		// change original graph to residual graph
-		DirectedGraph resiualG = makeResidualGraph(G);
+		G.makeResidualGraph();
 		maxflow = 0.0;
 		// check whether there is a augmenting path from s to t
 		// it equals to whether there is a direct path from s to t
@@ -32,11 +35,7 @@ public class MaxFlow {
 		return false;
 	}
 
-	public DirectedGraph makeResidualGraph(DirectedGraph G){
-		//TODO 
-		return G;
-		
-	}
+
 	
 	/**
 	 * @param args
