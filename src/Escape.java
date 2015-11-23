@@ -30,13 +30,17 @@ public class Escape {
 			// add a source node and target node
 			// the weights from source node(-1) to populated cities is 1
 			for (int i=0; i<G.X(); i++){
-				G.addEdge(new Edge(-1, G.getPopulatedCities()[i], 1));
+				G.addEdge(new Edge(-1, G.getPopulatedCities()[i], 0, 1));
 			}
 			// the weights from safe cities to target node(-2) is X
 			for (int i=0; i<G.S(); i++){
-				G.addEdge(new Edge(G.getSaftCities()[i], -2, G.X()));
+				G.addEdge(new Edge(G.getSaftCities()[i], -2, 0, G.X()));
 			}
 			System.out.println(G);
+			// TODO : apply maxflow algorithm to the modified graph G
+			// if the maxflow = X , return 'YES'
+			// else return 'NO'
+			
 		} catch (IOException e){
 			e.printStackTrace();
 		}

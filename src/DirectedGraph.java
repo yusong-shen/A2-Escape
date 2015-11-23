@@ -56,9 +56,11 @@ public class DirectedGraph {
         	String[] parts = line.split(" ");
             int v = Integer.parseInt(parts[0]);
             int w = Integer.parseInt(parts[1]);
+            // initial flow
+            double flow = 0;
             // give intermediate edge enough capacity
-            double weight = 2*X;
-            addEdge(new Edge(v, w, weight));
+            double capacity = 2*X;
+            addEdge(new Edge(v, w, flow, capacity));
         }		
 		
 	}

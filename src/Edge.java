@@ -11,13 +11,14 @@ import java.util.*;
 public class Edge {
 	private final int v;
 	private final int w;
-	private final double weight;
+	private final double flow;
+	private final double capacity;
 
-    public Edge(int v, int w, double weight) {
-        if (Double.isNaN(weight)) throw new IllegalArgumentException("Weight is NaN");
+    public Edge(int v, int w, double flow, double capacity) {
         this.v = v;
         this.w = w;
-        this.weight = weight;
+        this.flow = flow;
+        this.capacity = capacity;
     }
 
     public int from() {
@@ -28,18 +29,20 @@ public class Edge {
     	return w;
     }
     
-
-    public double weight() {
-    	return weight;
+    public double flow(){
+    	return flow;
+    }
+    public double capacity() {
+    	return capacity;
     }
 
     public String toString() {
-        return v + "->" + w + " " + String.format("%5.2f", weight);
+        return v + "->" + w + " " + String.format("%5.2f/%5.2f", flow, capacity);
     }    
 
     public static void main(String[] args) {
-        Edge e = new Edge(12, 34, 5.67);
-        Edge e1 = new Edge(123, 345, 45.67);
+        Edge e = new Edge(12, 34, 5.67, 6);
+        Edge e1 = new Edge(123, 345, 45.67, 70);
         System.out.println(e);
         ArrayList<Edge> list = new ArrayList<Edge>();
         list.add(e);
