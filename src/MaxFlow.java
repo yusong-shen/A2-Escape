@@ -27,18 +27,21 @@ public class MaxFlow {
 		maxflow = 0.0;
 		// check whether there is a augmenting path from s to t
 		// it equals to whether there is a direct path from s to t
+		// (forward edge not full, backward edge not empty.)
 		// which can be solved by BFS
 		while (hasAugmentingPath(G, s, t)){
-			//TODO : modify the flow network
 			// first, compute bottleneck capacity
-			// what is bottleneck? -
 			double bottleneck = Double.POSITIVE_INFINITY;
+			// trace the vertex backward from target
 			for (int v=t; v!=s; v=edgeTo[v].other(v))
+				//the bottleneck should be the minimal residual capacity along the path
 				bottleneck = Math.min(bottleneck, edgeTo[v].residualCapacityTo(v));
 			// then, augment flow
+			// add the residual flow(bottleneck) to all the vertex along the path
 			for (int v=t; v!=s; v=edgeTo[v].other(v))
 				edgeTo[v].addResidualFlowTo(v, bottleneck);
 			
+			// update the flow value
 			maxflow += bottleneck;
 		}
 	}

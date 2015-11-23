@@ -43,19 +43,25 @@ public class Edge {
     public double capacity() {
     	return capacity;
     }
-
+    
+    /**
+     * Given a vertex, for its forward edge, the residual capacity
+     * is its capacity - flow
+     * @param vertex
+     * @return
+     */
     public double residualCapacityTo(int vertex){
-    	// forward edge
-    	if (vertex == v) return flow;
     	// backward edge
+    	if (vertex == v) return flow;
+    	// forward edge
     	else if (vertex == w) return capacity-flow;
     	else throw new IllegalArgumentException();
     }
     
     public void addResidualFlowTo(int vertex, double delta){
-    	// forward edge
-    	if (vertex == v) flow -= delta;
     	// backward edge
+    	if (vertex == v) flow -= delta;
+    	// forward edge
     	else if (vertex == w) flow += delta;
     	else throw new IllegalArgumentException();
 
