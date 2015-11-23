@@ -26,6 +26,17 @@ public class Escape {
 		try{
 			List<String> lines = Files.readAllLines(Paths.get(file));
 			DirectedGraph G = new DirectedGraph(lines);
+			
+			// add a source node and target node
+			// the weights from source node(-1) to populated cities is 1
+			for (int i=0; i<G.X(); i++){
+				G.addEdge(new Edge(-1, G.getPopulatedCities()[i], 1));
+			}
+			// the weights from safe cities to target node(-2) is X
+			for (int i=0; i<G.S(); i++){
+				G.addEdge(new Edge(G.getSaftCities()[i], -2, G.X()));
+			}
+			System.out.println(G);
 		} catch (IOException e){
 			e.printStackTrace();
 		}
