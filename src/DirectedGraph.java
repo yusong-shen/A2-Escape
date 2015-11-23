@@ -120,7 +120,6 @@ public class DirectedGraph {
     }
     
 	public DirectedGraph makeResidualGraph(List<String> graph){
-		//TODO 
 		// if a original flow edge is v -7/9(f/c) -> w
 		// we will change it into v - 0/2 -> w
 		// 						  v <-0/7 -- w

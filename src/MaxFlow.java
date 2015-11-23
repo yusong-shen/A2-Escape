@@ -12,10 +12,14 @@ import java.util.Set;
  *
  */
 public class MaxFlow {
-	/*
+	/**
 	 * value of max flow
 	 */
 	private double maxflow;
+	/**
+	 * last edge on s->v path
+	 */
+	private Edge[] edgeTo;
 
 	public MaxFlow(DirectedGraph G, int s, int t, List<String> lines){
 		// change original graph to residual graph
@@ -27,7 +31,15 @@ public class MaxFlow {
 		while (hasAugmentingPath(G, s, t)){
 			//TODO : modify the flow network
 			// first, compute bottleneck capacity
+			// what is bottleneck? -
+			double bottleneck = Double.POSITIVE_INFINITY;
+			for (int v=t; v!=s; v=edgeTo[v].other(v))
+				bottleneck = Math.min(bottleneck, edgeTo[v].residualCapacityTo(v));
 			// then, augment flow
+			for (int v=t; v!=s; v=edgeTo[v].other(v))
+				edgeTo[v].addResidualFlowTo(v, bottleneck);
+			
+			maxflow += bottleneck;
 		}
 	}
 	
