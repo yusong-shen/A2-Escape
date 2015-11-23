@@ -25,11 +25,12 @@ public class Escape {
 		String file = args[0];
 		try{
 			List<String> lines = Files.readAllLines(Paths.get(file));
-			// add some comments
+			DirectedGraph G = new DirectedGraph(lines);
 		} catch (IOException e){
 			e.printStackTrace();
 		}
 
 	}
+	
 
 }
