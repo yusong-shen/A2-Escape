@@ -88,6 +88,7 @@ public class DirectedGraph {
     	int v = e.from();
 //    	int w = e.to();
     	adj.get(v).remove(e);
+    	E --;
     }
     
     public Iterable<Edge> adj(int v) {
@@ -134,9 +135,11 @@ public class DirectedGraph {
         adjCopy.putAll(adj);
         for (int v = minv; v < V() + minv; v++) {
             if (adjCopy.containsKey(v)) {
-	            for (Edge e : adjCopy.get(v)) {
+	            for (int i=0; i<adjCopy.get(v).size(); i++) {
 	            	// remove original edge
-	            	residualG.deleteEdge(e);
+	            	// should be real one not its copy
+	            	residualG.deleteEdge(residualG.adj.get(v).get(i));
+	            	Edge e = adjCopy.get(v).get(i);
 	            	int w = e.to();
 	            	// add forward residual edges
 	            	residualG.addEdge(new Edge(v, w, 0, e.capacity()-e.flow()));
