@@ -114,6 +114,10 @@ public class DirectedGraph implements Serializable{
     public int S(){
     	return S;
     }
+    
+    public HashMap<Integer, ArrayList<Edge>> adj(){
+    	return adj;
+    }
 
     public int[] getPopulatedCities(){
     	return populatedCities;

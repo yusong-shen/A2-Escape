@@ -10,8 +10,12 @@ import java.util.*;
  *
  */
 public class Edge implements Serializable {
-	private final int v;
-	private final int w;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6010701361596027086L;
+	private int v;
+	private int w;
 	private double flow;
 	private double capacity;
 
