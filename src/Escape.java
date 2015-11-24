@@ -36,10 +36,7 @@ public class Escape {
 			for (int i=0; i<G.S(); i++){
 				G.addEdge(new Edge(G.getSaftCities()[i], -2, 0, G.X()));
 			}
-//			System.out.println(G);
-//	        DirectedGraph residualG = G.makeResidualGraph();
-//	        System.out.println(residualG);	
-			// apply maxflow algorithm to the modified graph G
+			// apply maxflow algorithm to the residual flow graph G
 			// if the maxflow = X , return 'YES'
 			// else return 'NO'
 			MaxFlow mf = new MaxFlow(G, -1, -2);

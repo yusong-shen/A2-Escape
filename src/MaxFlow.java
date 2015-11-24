@@ -80,7 +80,7 @@ public class MaxFlow {
 				// residual graph
 				if (e.residualCapacityTo(w)>0 && !marked.get(w)){
 					edgeTo.put(w, e); // save last edge on path to w
-					marked.put(s, true) ; // mark w as visited
+					marked.put(w, true) ; // mark w as visited
 					queue.add(w); // add w to the queue
 				}
 			}
