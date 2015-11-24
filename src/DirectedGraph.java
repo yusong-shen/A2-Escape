@@ -62,8 +62,8 @@ public class DirectedGraph implements Serializable{
             int w = Integer.parseInt(parts[1]);
             // initial flow
             double flow = 0;
-            // give intermediate edge enough capacity
-            double capacity = 2*X;
+            // initial intermediate edge's capacity to 1
+            double capacity = 1;
             addEdge(new Edge(v, w, flow, capacity));
         }		
 		

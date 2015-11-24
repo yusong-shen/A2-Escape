@@ -40,6 +40,7 @@ public class Escape {
 			// if the maxflow = X , return 'YES'
 			// else return 'NO'
 			MaxFlow mf = new MaxFlow(G, -1, -2);
+			System.out.println(mf.maxflow());
 			if (mf.maxflow() == G.X())
 				System.out.println("YES");
 			else
