@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -199,7 +200,8 @@ public class DirectedGraph implements Serializable{
     public static void main(String[] args) {
         try {
             System.out.println(args[0]);
-            List<String> lines = Files.readAllLines(Paths.get(args[0]));
+            // compatible to java 7
+            List<String> lines = Files.readAllLines(Paths.get(args[0]),Charset.defaultCharset());
 	        DirectedGraph G = new DirectedGraph(lines);
 	        System.out.println(G);
 	        DirectedGraph residualG = G.makeResidualGraph();

@@ -3,6 +3,7 @@
  */
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.util.List;
 /**
@@ -24,7 +25,8 @@ public class Escape {
 	public static void main(String[] args) {
 		String file = args[0];
 		try{
-			List<String> lines = Files.readAllLines(Paths.get(file));
+			// make it compatible to java 7
+			List<String> lines = Files.readAllLines(Paths.get(file),Charset.defaultCharset());
 			DirectedGraph G = new DirectedGraph(lines);
 			
 			// add a source node and target node
