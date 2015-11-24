@@ -1,8 +1,7 @@
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -16,8 +15,12 @@ import java.util.Set;
  * @author yusong
  *
  */
-public class DirectedGraph {
+public class DirectedGraph implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 387375112965174640L;
 	private int V = 0;
 	private int E = 0;
 	private int X;
@@ -26,19 +29,6 @@ public class DirectedGraph {
 	private int[] populatedCities;
 	private int[] safeCities;
 	
-	/**
-	 * a copy constructor
-	 * @param another
-	 */
-	public DirectedGraph(DirectedGraph another){
-		this.V = another.V;
-		this.E = another.E;
-		this.X = another.X;
-		this.S = another.S;
-		this.adj = another.adj;
-		this.populatedCities = another.populatedCities;
-		this.safeCities = another.safeCities;
-	}
 	
 	public DirectedGraph(List<String> graph){
 		// first line
@@ -140,7 +130,7 @@ public class DirectedGraph {
 		// directly modify from original graph 
 		// then it needs one more deleteEdge method
         // deep copy a G to avoid concurrent modification
-		DirectedGraph residualG = new DirectedGraph(this);
+		DirectedGraph residualG = (DirectedGraph) deepClone(this);
         Set<Integer> vSet = adj.keySet();
         int minv = Collections.min(vSet); 
         // loop through all the edges
@@ -166,7 +156,25 @@ public class DirectedGraph {
 		
 	}
     
-    
+	 /**
+	   * This method makes a "deep clone" of any object it is given.
+	   */
+	  public static Object deepClone(Object object) {
+	    try {
+	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	      ObjectOutputStream oos = new ObjectOutputStream(baos);
+	      oos.writeObject(object);
+	      ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+	      ObjectInputStream ois = new ObjectInputStream(bais);
+	      return ois.readObject();
+	    }
+	    catch (Exception e) {
+	      e.printStackTrace();
+	      return null;
+	    }
+	  }
+	
+	
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(V + " " + E + "\n");

@@ -1,6 +1,7 @@
 /*
  The Edge class represent an edge in an weighted graph
 */
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -8,7 +9,7 @@ import java.util.*;
  * @author yusong
  *
  */
-public class Edge {
+public class Edge implements Serializable {
 	private final int v;
 	private final int w;
 	private double flow;
