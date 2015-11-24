@@ -23,7 +23,7 @@ public class MaxFlow {
 
 	public MaxFlow(DirectedGraph G, int s, int t, List<String> lines){
 		// change original graph to residual graph
-        DirectedGraph residualG = G.makeResidualGraph(lines);
+        DirectedGraph residualG = G.makeResidualGraph();
 		maxflow = 0.0;
 		// check whether there is a augmenting path from s to t
 		// it equals to whether there is a direct path from s to t

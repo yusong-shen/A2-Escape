@@ -25,7 +25,21 @@ public class DirectedGraph {
 	private HashMap<Integer, ArrayList<Edge>> adj = new HashMap<Integer, ArrayList<Edge>>();    // adj.get(v) = adjacency list for vertex v
 	private int[] populatedCities;
 	private int[] safeCities;
-
+	
+	/**
+	 * a copy constructor
+	 * @param another
+	 */
+	public DirectedGraph(DirectedGraph another){
+		this.V = another.V;
+		this.E = another.E;
+		this.X = another.X;
+		this.S = another.S;
+		this.adj = another.adj;
+		this.populatedCities = another.populatedCities;
+		this.safeCities = another.safeCities;
+	}
+	
 	public DirectedGraph(List<String> graph){
 		// first line
 		String line0 = graph.get(0);
@@ -119,26 +133,24 @@ public class DirectedGraph {
     	return safeCities;
     }
     
-	public DirectedGraph makeResidualGraph(List<String> graph){
+	public DirectedGraph makeResidualGraph(){
 		// if a original flow edge is v -7/9(f/c) -> w
 		// we will change it into v - 0/2 -> w
 		// 						  v <-0/7 -- w
 		// directly modify from original graph 
 		// then it needs one more deleteEdge method
-		DirectedGraph residualG = new DirectedGraph(graph);
+        // deep copy a G to avoid concurrent modification
+		DirectedGraph residualG = new DirectedGraph(this);
         Set<Integer> vSet = adj.keySet();
         int minv = Collections.min(vSet); 
         // loop through all the edges
-        // shallow copy a adj to avoid concurrent modification
-        HashMap<Integer, ArrayList<Edge>> adjCopy = new HashMap<Integer, ArrayList<Edge>>();
-        adjCopy.putAll(adj);
         for (int v = minv; v < V() + minv; v++) {
-            if (adjCopy.containsKey(v)) {
-	            for (int i=0; i<adjCopy.get(v).size(); i++) {
+            if (adj.containsKey(v)) {
+	            for (int i=0; i<adj.get(v).size(); i++) {
 	            	// remove original edge
 	            	// should be real one not its copy
 	            	residualG.deleteEdge(residualG.adj.get(v).get(i));
-	            	Edge e = adjCopy.get(v).get(i);
+	            	Edge e = adj.get(v).get(i);
 	            	int w = e.to();
 	            	// add forward residual edges
 	            	residualG.addEdge(new Edge(v, w, 0, e.capacity()-e.flow()));
@@ -178,7 +190,7 @@ public class DirectedGraph {
             List<String> lines = Files.readAllLines(Paths.get(args[0]));
 	        DirectedGraph G = new DirectedGraph(lines);
 	        System.out.println(G);
-	        DirectedGraph residualG = G.makeResidualGraph(lines);
+	        DirectedGraph residualG = G.makeResidualGraph();
 	        System.out.println(residualG);
 	        
         } catch (IOException e){
